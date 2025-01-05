@@ -8,16 +8,13 @@ body {
   overflow: hidden;
 }
 
-.dancing-guy {
-  width: 200px;
-  height: 200px;
-  background-image: url('dancing-fat-guy.gif'); /* Replace with your animated GIF */
-  background-size: cover;
-  background-position: center;
-  animation: none; /* Animation starts as none */
+.gif-container {
+  width: 300px;
+  height: 300px;
+  display: none; /* Initially hidden */
 }
 
-@keyframes dance {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(10deg); }
+.tenor-gif-embed {
+  width: 100%;
+  height: 100%;
 }
