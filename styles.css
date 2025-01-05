@@ -1,15 +1,6 @@
-/* Initially hide the GIF */
+/* Style for the dancing GIF */
 .dancing-gif {
-    width: 100%;
+    width: 100%;  /* Adjust width to your liking */
     height: auto;
-    display: none; /* Initially hidden */
-}
-
-/* Optional styling for the gif-container */
-.gif-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Center vertically */
-    background-color: #f0f0f0; /* Light background */
+    display: none;  /* Initially hide the GIF */
 }
