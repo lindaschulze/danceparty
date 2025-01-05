@@ -1,6 +1,0 @@
-/* Style for the dancing GIF */
-.dancing-gif {
-    width: 100%;  /* Adjust width to your liking */
-    height: auto;
-    display: none;  /* Initially hide the GIF */
-}
