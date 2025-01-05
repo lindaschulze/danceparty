@@ -1,35 +1,31 @@
-const gifContainer = document.querySelector('.dancing-gif');
+let gifElement = document.querySelector('.dancing-gif');
+let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let analyser = audioContext.createAnalyser();
+let microphone;
+let scriptProcessor = audioContext.createScriptProcessor(2048, 1, 1);
 
 navigator.mediaDevices.getUserMedia({ audio: true })
-  .then((stream) => {
-    console.log("Microphone access granted!");
+    .then(function(stream) {
+        microphone = audioContext.createMediaStreamSource(stream);
+        microphone.connect(analyser);
+        analyser.connect(scriptProcessor);
+        scriptProcessor.connect(audioContext.destination);
 
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const analyser = audioContext.createAnalyser();
-    const microphone = audioContext.createMediaStreamSource(stream);
-    const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        scriptProcessor.onaudioprocess = function() {
+            let bufferLength = analyser.frequencyBinCount;
+            let dataArray = new Uint8Array(bufferLength);
+            analyser.getByteFrequencyData(dataArray);
+            
+            let sum = dataArray.reduce((a, b) => a + b, 0);
+            let average = sum / bufferLength;
 
-    analyser.fftSize = 512;
-    microphone.connect(analyser);
-
-    function monitorSound() {
-      analyser.getByteFrequencyData(dataArray);
-      const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-
-      console.log("Volume level:", volume); // Log volume for debugging
-
-      if (volume > 10) {
-        gifContainer.style.display = 'block'; // Show GIF when sound is detected
-      } else {
-        gifContainer.style.display = 'none'; // Hide GIF when silent
-      }
-
-      requestAnimationFrame(monitorSound);
-    }
-
-    monitorSound();
-  })
-  .catch((error) => {
-    console.error("Error accessing microphone:", error);
-    alert("Please allow microphone access for this feature to work.");
-  });
+            if (average > 50) {  // Threshold for sound detection
+                gifElement.style.display = 'block';  // Show the GIF when sound is detected
+            } else {
+                gifElement.style.display = 'none';   // Hide the GIF when no sound is detected
+            }
+        };
+    })
+    .catch(function(err) {
+        console.error("Error accessing microphone: ", err);
+    });
