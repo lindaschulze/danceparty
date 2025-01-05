@@ -1,4 +1,4 @@
-const dancingGuy = document.querySelector('.dancing-guy');
+const gifContainer = document.querySelector('.gif-container');
 
 // Access microphone
 navigator.mediaDevices.getUserMedia({ audio: true })
@@ -18,9 +18,9 @@ navigator.mediaDevices.getUserMedia({ audio: true })
       const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
 
       if (volume > 10) {
-        dancingGuy.style.animation = 'dance 0.5s infinite'; // Start animation
+        gifContainer.style.display = 'block'; // Show GIF when sound detected
       } else {
-        dancingGuy.style.animation = 'none'; // Stop animation
+        gifContainer.style.display = 'none'; // Hide GIF when silent
       }
 
       requestAnimationFrame(monitorSound);
