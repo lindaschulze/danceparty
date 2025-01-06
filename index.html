@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dancing GIF</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        #dancingGif {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
 </head>
 <body>
-    <div id="gif-container">
-        <img id="dancingGif" src="dancing.gif" alt="Dancing Fat Guy" />
-    </div>
+    <img id="dancingGif" src="dancing.gif" alt="Dancing Fat Guy" />
 </body>
 </html>
