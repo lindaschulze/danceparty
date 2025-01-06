@@ -1,32 +1,24 @@
-/* Fullscreen black background with centered gif */
-body, html {
+/* Style for the sound level bar */
+body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
 }
 
-#gif-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#sound-bar-container {
+    width: 80%;
+    height: 30px;
+    background-color: #ccc;
+    margin: 20px auto;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-#dancingGif {
-    width: 300px;
-    height: 300px;
-    animation: dance 1s infinite;
-    animation-play-state: paused; /* Initially paused */
-}
-
-@keyframes dance {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.05);
-    }
+#sound-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #4caf50;
+    transition: width 0.1s ease-in-out;
 }
