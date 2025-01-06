@@ -18,4 +18,15 @@ body, html {
 #dancingGif {
     width: 300px;
     height: 300px;
+    animation: dance 1s infinite;
+    animation-play-state: paused; /* Initially paused */
+}
+
+@keyframes dance {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.05);
+    }
 }
