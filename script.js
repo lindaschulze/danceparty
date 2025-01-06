@@ -12,14 +12,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         analyser.fftSize = 256;
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
+        const noiseGate = 15; // Baseline to filter background noise
+        const soundThreshold = 30; // Threshold to activate animation
+
         function detectSound() {
             analyser.getByteFrequencyData(dataArray);
 
             // Calculate the average volume
             const averageVolume = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
 
-            // Threshold to trigger the GIF animation
-            if (averageVolume > 20) {
+            console.log("Average Volume:", averageVolume); // Debugging
+
+            // Trigger animation if sound exceeds the threshold
+            if (averageVolume > soundThreshold) {
                 gif.style.animationPlayState = 'running';
             } else {
                 gif.style.animationPlayState = 'paused';
