@@ -5,6 +5,7 @@ body {
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
+    text-align: center;
 }
 
 #sound-bar-container {
@@ -21,4 +22,9 @@ body {
     width: 0%;
     background-color: #4caf50;
     transition: width 0.1s ease-in-out;
+}
+
+#dancing-gif {
+    width: 50%;
+    margin-top: 20px;
 }
