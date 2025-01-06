@@ -1,3 +1,4 @@
+/* Fullscreen black background with centered gif */
 body, html {
     margin: 0;
     padding: 0;
@@ -5,7 +6,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000;
+    background-color: black;
 }
 
 #gif-container {
