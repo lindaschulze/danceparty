@@ -1,11 +1,12 @@
-// Selektiere das GIF-Element
+// Selektiere das GIF-Element und den Text
 const gif = document.getElementById('gif');
+const text = document.getElementById('text');  // Text hinzugefügt
 
 // Timer, um das GIF nach einer Verzögerung auszublenden
 let hideGifTimeout;
 
 // Schwellenwert und Puffer für Lautstärkedaten
-const VOLUME_THRESHOLD = 50; // Schwelle für Lautstärke
+const VOLUME_THRESHOLD = 60; // Erhöhter Schwellenwert für Lautstärke
 const SAMPLES = 5; // Anzahl der Messungen für Glättung
 const volumeBuffer = []; // Speichert die letzten Lautstärkewerte
 
@@ -38,8 +39,9 @@ async function startListening() {
       const averageVolume = volumeBuffer.reduce((a, b) => a + b, 0) / volumeBuffer.length;
 
       if (averageVolume > VOLUME_THRESHOLD) {
-        // Lautstärke über Schwelle -> GIF anzeigen
+        // Lautstärke über Schwelle -> GIF anzeigen und Text ausblenden
         gif.style.display = 'block';
+        text.style.display = 'none';  // Text ausblenden
 
         // Lösche den Ausblende-Timer, falls aktiv
         if (hideGifTimeout) {
@@ -47,12 +49,13 @@ async function startListening() {
           hideGifTimeout = null;
         }
       } else {
-        // Lautstärke unter Schwelle -> GIF nach 1 Sekunde ausblenden
+        // Lautstärke unter Schwelle -> GIF nach 0,5 Sekunden ausblenden
         if (!hideGifTimeout) {
           hideGifTimeout = setTimeout(() => {
             gif.style.display = 'none';
+            text.style.display = 'block';  // Text wieder anzeigen
             hideGifTimeout = null; // Timer zurücksetzen
-          }, 1000); // Verzögerung in Millisekunden
+          }, 500); // Verzögerung auf 0,5 Sekunden angepasst
         }
       }
 
