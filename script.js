@@ -49,13 +49,13 @@ async function startListening() {
           hideGifTimeout = null;
         }
       } else {
-        // Lautstärke unter Schwelle -> GIF nach 500 Millisekunden ausblenden
+        // Lautstärke unter Schwelle -> GIF nach 700 Millisekunden ausblenden
         if (!hideGifTimeout) {
           hideGifTimeout = setTimeout(() => {
             gif.style.display = 'none';
             text.style.display = 'block';  // Text wieder anzeigen
             hideGifTimeout = null; // Timer zurücksetzen
-          }, 500); // Verzögerung auf 500 Millisekunden angepasst
+          }, 700); // Verzögerung auf 700 Millisekunden angepasst
         }
       }
 
