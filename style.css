@@ -1,19 +1,27 @@
-/* Container for positioning */
-.container {
+/* Allgemeine Stile für den Body */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  margin: 0;
+  flex-direction: column;
   text-align: center;
-  padding: 20px;
 }
 
-/* Style for the header text */
-h1 {
-  font-size: 2em;
+/* Stil für den Text */
+#text {
+  font-size: 2rem;
+  font-weight: bold;
   color: #333;
   margin-bottom: 20px;
-  font-family: Arial, sans-serif;
 }
 
-/* GIF styles */
+/* Stil für das GIF */
 #gif {
-  width: 300px; /* Adjust size if needed */
-  margin-top: 20px;
+  width: 300px;  /* Größe des GIFs anpassen */
+  height: auto;
+  display: none;  /* Initial versteckt */
 }
