@@ -4,7 +4,11 @@ const gif = document.getElementById('gif');
 // Timer, um das GIF nach einer Verzögerung auszublenden
 let hideGifTimeout;
 
-// Funktion, um das Mikrofon zu aktivieren und Audio-Daten zu analysieren
+// Schwellenwert und Puffer für Lautstärkedaten
+const VOLUME_THRESHOLD = 50; // Schwelle für Lautstärke
+const SAMPLES = 5; // Anzahl der Messungen für Glättung
+const volumeBuffer = []; // Speichert die letzten Lautstärkewerte
+
 async function startListening() {
   try {
     // Zugriff auf das Mikrofon
@@ -24,21 +28,30 @@ async function startListening() {
       const sum = dataArray.reduce((a, b) => a + b, 0);
       const volume = sum / dataArray.length;
 
-      // Lautstärke-Schwelle: Passe den Wert an (hier: > 50)
-      if (volume > 50) {
-        gif.style.display = 'block'; // GIF anzeigen
+      // Speichere die Lautstärke in den Puffer
+      volumeBuffer.push(volume);
+      if (volumeBuffer.length > SAMPLES) {
+        volumeBuffer.shift(); // Ältesten Wert entfernen
+      }
 
-        // Falls ein Ausblende-Timer aktiv ist, lösche ihn
+      // Berechne den Durchschnitt der letzten Lautstärkewerte
+      const averageVolume = volumeBuffer.reduce((a, b) => a + b, 0) / volumeBuffer.length;
+
+      if (averageVolume > VOLUME_THRESHOLD) {
+        // Lautstärke über Schwelle -> GIF anzeigen
+        gif.style.display = 'block';
+
+        // Lösche den Timer, falls aktiv
         if (hideGifTimeout) {
           clearTimeout(hideGifTimeout);
         }
       } else {
-        // GIF nach 1 Sekunde ausblenden
+        // Lautstärke unter Schwelle -> GIF nach 1 Sekunde ausblenden
         if (!hideGifTimeout) {
           hideGifTimeout = setTimeout(() => {
             gif.style.display = 'none';
             hideGifTimeout = null; // Timer zurücksetzen
-          }, 1000); // Verzögerung in Millisekunden
+          }, 1000);
         }
       }
 
