@@ -6,7 +6,7 @@ const text = document.getElementById('text');  // Text hinzugefügt
 let hideGifTimeout;
 
 // Schwellenwert und Puffer für Lautstärkedaten
-const VOLUME_THRESHOLD = 60; // Erhöhter Schwellenwert für Lautstärke
+const VOLUME_THRESHOLD = 70; // Erhöhter Schwellenwert für Lautstärke
 const SAMPLES = 5; // Anzahl der Messungen für Glättung
 const volumeBuffer = []; // Speichert die letzten Lautstärkewerte
 
@@ -49,13 +49,13 @@ async function startListening() {
           hideGifTimeout = null;
         }
       } else {
-        // Lautstärke unter Schwelle -> GIF nach 250 Millisekunden ausblenden
+        // Lautstärke unter Schwelle -> GIF nach 500 Millisekunden ausblenden
         if (!hideGifTimeout) {
           hideGifTimeout = setTimeout(() => {
             gif.style.display = 'none';
             text.style.display = 'block';  // Text wieder anzeigen
             hideGifTimeout = null; // Timer zurücksetzen
-          }, 250); // Verzögerung auf 250 Millisekunden verkürzt
+          }, 500); // Verzögerung auf 500 Millisekunden angepasst
         }
       }
 
