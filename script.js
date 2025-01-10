@@ -41,7 +41,7 @@ async function startListening() {
       if (averageVolume > VOLUME_THRESHOLD) {
         // Lautstärke über Schwelle -> GIF anzeigen und Text ausblenden
         gif.style.display = 'block';
-        text.style.display = 'none';  // Text ausblenden
+        text.style.display = 'none';  // Text sofort ausblenden
 
         // Lösche den Ausblende-Timer, falls aktiv
         if (hideGifTimeout) {
@@ -49,13 +49,13 @@ async function startListening() {
           hideGifTimeout = null;
         }
       } else {
-        // Lautstärke unter Schwelle -> GIF nach 0,5 Sekunden ausblenden
+        // Lautstärke unter Schwelle -> GIF nach 250 Millisekunden ausblenden
         if (!hideGifTimeout) {
           hideGifTimeout = setTimeout(() => {
             gif.style.display = 'none';
             text.style.display = 'block';  // Text wieder anzeigen
             hideGifTimeout = null; // Timer zurücksetzen
-          }, 500); // Verzögerung auf 0,5 Sekunden angepasst
+          }, 250); // Verzögerung auf 250 Millisekunden verkürzt
         }
       }
 
